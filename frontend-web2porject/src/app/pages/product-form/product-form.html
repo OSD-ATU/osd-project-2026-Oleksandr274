@@ -1,0 +1,103 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form max-w-[900px] mx-auto my-10">
+
+  <mat-card>
+    <mat-card-header class="mb-3 text-lg">Enter Product Data</mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Title
+        </mat-label>
+        <input id="title" type="text" formControlName="title" matInput />
+        @if (!title?.value){
+          <mat-hint>Must be at least 3 characters</mat-hint>
+        }
+        @if (title?.hasError('required')){
+          <mat-error>Name is required</mat-error>
+        }
+        @else if (title?.hasError('minlength'))
+        {
+          <mat-error>Title must be at least 3 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Category
+        </mat-label>
+        <input id="category" type="text" formControlName="category" matInput />
+        @if (!category?.value){
+          <mat-hint>Must be at least 3 characters</mat-hint>
+        }
+        @if (category?.hasError('required')){
+          <mat-error>Category is required</mat-error>
+        }
+        @else if (category?.hasError('minlength'))
+        {
+          <mat-error>Category must be at least 3 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-2">
+        <mat-label>
+          Price
+        </mat-label>
+        <input id="price" type="number" formControlName="price" matInput />
+        @if (price?.hasError('required')){
+          <mat-error>Price is required</mat-error>
+        } @else if (price?.hasError('min'))
+        {
+          <mat-error>Price must be a positive number</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Brand
+        </mat-label>
+        <input id="brand" type="text" formControlName="brand" matInput />
+        @if (!brand?.value){
+          <mat-hint>Must be at least 2 characters</mat-hint>
+        }
+        @if (brand?.hasError('required')){
+          <mat-error>Brand is required</mat-error>
+        }
+        @else if (brand?.hasError('minlength'))
+        {
+          <mat-error>Brand must be at least 2 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Description
+        </mat-label>
+        <textarea id="description" type="text" formControlName="description" matInput></textarea>
+      </mat-form-field>
+
+      <div formArrayName="images">
+        <fieldset>
+
+          @for(image of images.controls; track i ; let i=$index;)
+          {
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Image {{i+1}}:</mat-label>
+              <input [formControlName]="i" placeholder="Enter image url" id="image-{{i}}" matInput />
+              <button class="mt-1" mat-button="button" type="button" aria-label="Remove item" (click)="removeImage(i)">
+                <mat-icon>delete</mat-icon>
+                Remove</button>
+            </mat-form-field>
+          </div>
+          }
+        </fieldset>
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button class="mr-6" type="button" mat-flat-button (click)="addImage()">Add Image</button>
+      <button type="submit" mat-raised-button [disabled]="productForm.invalid">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

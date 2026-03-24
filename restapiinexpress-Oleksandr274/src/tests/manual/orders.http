@@ -1,0 +1,92 @@
+@endpointAuth = http://localhost:3000/api/v1/auth
+@endpointOrders = http://localhost:3000/api/v1/orders
+@endpointUsers = http://localhost:3000/api/v1/users
+@endpointCart = http://localhost:3000/api/v1/cart
+@idOrder = 694b085bb7dd69b7d312c051
+@idUser = 694817420e2e6d9b6abc0974
+
+# @name login
+
+POST {{endpointAuth}} HTTP/1.1
+content-type: application/json
+
+{ 
+    "email": "alex.ferguson@gmail.com",
+    "password": "2password12345"
+}
+
+### POST Request for a login
+## Expected result is a token with a payload that inlcudes a role of admin
+# @name loginAdmin
+POST {{endpointAuth}} HTTP/3.0
+content-type: application/json
+
+{
+   "email": "admin.smith@gmail.com",
+   "password" : "adminpassword12345"
+}
+
+
+###
+# @accessToken = {{login.response.body.accessToken}}
+@accessToken = {{loginAdmin.response.body.accessToken}}
+
+###
+### POST Request for an order
+POST {{endpointOrders}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{ 
+  "items": [
+    {
+      "quantity": 3,
+      "productId": "68ffb3cfe8a92809d71723ff"
+    },
+    {
+      "quantity": 2,
+      "productId": "69125c099a03efc302956e9b"
+    }
+  ],
+  "shippingAddress1":"Ash Ln1",
+  "shippingAddress2":"Ballytivnan",
+  "city":"Sligo",
+  "eircode":"F91 YW50",
+  "phone":"+353719155222"
+}
+
+###
+### GET Request for all orders
+GET {{endpointOrders}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+### GET Request for all orders of a paticular user
+GET {{endpointOrders}}/user?userId={{idUser}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+### GET Request for 1 order by ID
+GET {{endpointOrders}}/{{idOrder}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+
+###
+### PUT Request for 1 product by ID
+PUT {{endpointOrders}}/{{idOrder}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{ 
+  "status": "shipped"
+}
+
+
+###
+### DELETE Request for 1 product by ID
+DELETE  {{endpointOrders}}/{{idOrder}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}

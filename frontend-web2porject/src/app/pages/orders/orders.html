@@ -1,0 +1,86 @@
+@if (orders$ | async; as orders){
+<div class="container p-3">
+
+  @if(currentUser$.getValue()?.role === "admin"){
+  <div class="w-75">
+    <h4>Select User</h4>
+    <mat-form-field>
+      <mat-label>User ID</mat-label>
+      <mat-select [(value)]="selectedUser">
+        <mat-option [value]="" [routerLink]="['/orders']">
+          All
+        </mat-option>
+        @if( users$ | async; as users){
+          @for (user of users; track user._id) {
+          <mat-option [value]="user._id" [routerLink]="['/orders']" [queryParams]="{userId: user._id}">
+            {{user._id}}
+          </mat-option>
+          }
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  }
+
+  <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+      <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
+        <tr>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Order ID
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Shipping Address 1
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            City
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Date Placed
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Total Price
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            User ID
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders; track order._id) {
+        <tr class="bg-neutral-primary-soft border-b border-default hover:bg-red-200 cursor-pointer"
+        [routerLink]="[`/orders/${order._id}`]"
+        >
+          <td class="px-6 py-4 font-medium text-heading whitespace-nowrap" >
+            {{order._id}}
+          </td>
+          <td class="px-6 py-4">
+            {{order.shippingAddress1}}
+          </td>
+          <td class="px-6 py-4">
+            {{order.city}}
+          </td>
+          <td class="px-6 py-4">
+            {{order.dateOrdered}}
+          </td>
+          <td class="px-6 py-4">
+            {{order.totalPrice | currency:'EUR'}}
+          </td>
+          <td class="px-6 py-4">
+            {{order.userId}}
+          </td>
+          <td class="px-6 py-4">
+            {{order.status}}
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+}@else {
+  Loading...
+}

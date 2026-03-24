@@ -1,0 +1,68 @@
+@endpointUser = http://localhost:3000/api/v1/users
+@endpointAuth = http://localhost:3000/api/v1/auth
+
+@id = 694817420e2e6d9b6abc0974
+
+### POST Request for a login
+## Expected result is a token with a payload that inlcudes a role of admin
+# @name loginAdmin
+POST {{endpointAuth}} HTTP/3.0
+content-type: application/json
+
+{
+   "email": "admin.smith@gmail.com",
+   "password" : "adminpassword12345"
+}
+
+
+###
+@accessToken = {{loginAdmin.response.body.accessToken}}
+
+
+###
+### POST Request for a user
+POST {{endpointUser}} HTTP/1.1
+content-type: application/json
+
+{ 
+    "firstName": "AdminName",
+    "lastName": "Smith",
+    "phonenumber": "+353871234567",
+    "email": "admin.smith@gmail.com",
+    "password": "adminpassword12345",
+    "role": "admin",
+    "dob": "03-14-1973",
+    "address": "Silicon Valley"
+}
+
+###
+### GET Request for all users
+GET {{endpointUser}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+### GET Request for 1 user by ID
+GET {{endpointUser}}/{{id}} HTTP/1.1
+content-type: application/json
+
+
+###
+### PUT Request for 1 user by ID
+PUT {{endpointUser}}/68f8df02dcd1dbe063a73c88 HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Tom3.5",
+  "lastName": "Holland3.5",
+  "email": "tom.holland3.5@gmail.com",
+  "password": "3.5password1234",
+  "dob": "1970-01-01T00:00:00.000Z",
+  "address": "The House 33.5"
+}
+
+
+###
+### DELETE Request for 1 user by ID
+DELETE  {{endpointUser}}/68f8df02dcd1dbe063a73c88 HTTP/1.1
+content-type: application/json

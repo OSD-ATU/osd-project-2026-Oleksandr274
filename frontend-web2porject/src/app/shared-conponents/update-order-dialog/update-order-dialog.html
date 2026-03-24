@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Update Order</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Order Status</mat-label>
+    <input matInput [(ngModel)]="status" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="onNoClick()">Cancel</button>
+  <button matButton [mat-dialog-close]="status()" cdkFocusInitial>Confirm</button>
+</mat-dialog-actions>

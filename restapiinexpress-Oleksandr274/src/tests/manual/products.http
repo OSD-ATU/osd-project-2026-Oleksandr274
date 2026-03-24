@@ -1,0 +1,57 @@
+@endpoint = http://localhost:3000/api/v1/products
+
+@id = 68ffabcae38a2adda61d9b93
+@category = headgear
+
+###
+### POST Request for a product
+POST {{endpoint}} HTTP/1.1
+content-type: application/json
+
+{ 
+    "title": "Nike x Hyperice Hyperboot",
+    "images": ["https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto/2ce6abb9-f17a-47dd-a8a4-3ac6e8ce5b44/ZM+SUPERFLY+10+ACAD+SG-PRO+AC.png"],
+    "category": "shoes",
+    "price": 749.99,
+    "brand": "Nike",
+    "condition": "brand-new",
+    "description": "Optimise your warm-up and recovery routines with the Hyperboot"
+}
+
+###
+### GET Request for all products
+GET {{endpoint}} HTTP/1.1
+content-type: application/json
+
+###
+### GET Request for products by category
+GET {{endpoint}}?category={{category}} HTTP/1.1
+content-type: application/json
+
+###
+### GET Request for 1 product by ID
+GET {{endpoint}}/{{id}} HTTP/1.1
+content-type: application/json
+
+
+###
+### PUT Request for 1 product by ID
+PUT {{endpoint}}/{{id}} HTTP/1.1
+content-type: application/json
+
+{ 
+    "title": "Nike x Hyperice Hyperboot",
+    "images": ["https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto/35c29732-edec-41e6-b2a1-b820b65adc24/HYPERBOOT+BY+NIKE+X+HYPERICE.png"],
+    "category": "cool shoes",
+    "price": 749.99,
+    "brand": "Nike",
+    "condition": "brand-new",
+    "description": "Optimise your warm-up and recovery routines with the Hyperboot"
+}
+
+
+###
+### DELETE Request for 1 product by ID
+DELETE  {{endpoint}}/{{id}} HTTP/1.1
+content-type: application/json
+

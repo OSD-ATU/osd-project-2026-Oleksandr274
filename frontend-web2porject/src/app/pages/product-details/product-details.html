@@ -1,0 +1,65 @@
+@if (product$ | async; as product) {
+<div class="mx-auto w-full h-screen mt-1">
+  <div class="md:w-11/12 w-full m-auto flex flex-col sm:flex-row sm:items-center gap-4 ">
+    <div class="sm:w-1/2 sm:max-h-[550px]">
+      <img [src]="product.images[0]" class="h-full object-cover rounded-lg" [alt]="product.title">
+    </div>
+
+    <div class="sm:w-1/2 ml-2 sm:ml-0">
+      <div class="text-xs rounded-xl bg-gray-100 px-2 py-1 w-fit mb-2">
+        {{product.category | titlecase}}
+      </div>
+      <h1 class="text-2xl font-extrabold mb-3">
+        {{product.title }}
+      </h1>
+      <p class="text-3xl font-extrabold mb-4">{{product.price | currency:'EUR'}}</p>
+      <p class="font-semibold mb-2">Description</p>
+      <p class="text-gray-600 border0b border-gray-200 pb-4">{{product.description}}</p>
+
+      <div class="flex items-center gap-2 mb-3 pt-4">
+        <span class="font-semibold">Quantity:</span>
+        <div class="inline-flex items-center">
+          <button class="mdc-icon-button mat-mdc-icon-button mat-mdc-button-base mat-mdc-button-disabled mat-unthemed"
+            disabled="true">
+            <span class="mat-mdc-button-persistent-ripple mdc-icon-button__ripple"></span>
+            <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+              aria-hidden="true" data-mat-icon-type="font">remove</mat-icon>
+            <span class="mat-focus-indicator"></span><span class="mat-mdc-button-touch-target"></span>
+          </button>
+          <div class="px-3">1</div>
+          <button class="mdc-icon-button mat-mdc-icon-button mat-mdc-button-base mat-unthemed"
+            mat-ripple-loader-class-name="mat-mdc-button-ripple"><span
+              class="mat-mdc-button-persistent-ripple mdc-icon-button__ripple"></span>
+            <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+              aria-hidden="true" data-mat-icon-type="font">add</mat-icon>
+            <span class="mat-focus-indicator"></span><span class="mat-mdc-button-touch-target"></span><span
+              class="mat-ripple mat-mdc-button-ripple"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex gap-4 mb-1 border-gray-200 pb-4 ">
+        <button matButton="filled" class="w-2/3 flex items-center gap-2" (click)="onAddToCart()">
+          <mat-icon>shopping_cart</mat-icon>
+          Add to Cart
+        </button>
+      </div>
+
+      @if(currentUser$.getValue()?.role === "admin"){
+        <div class="flex gap-4 mb-1 border-gray-200 pb-4 ">
+          <button mat-flat-button color="error" (click)="openConfirmDeleteDialog()">Delete</button>
+        </div>
+      }
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<!-- <button mat-flat-button color="error" (click)="openConfirmDeleteDialog()">Delete</button> -->
+} @else {
+Loading product ...
+
+}

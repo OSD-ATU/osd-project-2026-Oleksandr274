@@ -1,0 +1,114 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form max-w-[900px] mx-auto my-10">
+
+  <mat-card>
+    <mat-card-header class="mb-3 text-lg">Enter Your Details</mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Firstname
+        </mat-label>
+        <input id="firstName" type="text" formControlName="firstName" matInput />
+        @if (firstName?.hasError('required')){
+          <mat-error>Firstname is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Lastname
+        </mat-label>
+        <input id="lastName" type="text" formControlName="lastName" matInput />
+        @if (lastName?.hasError('required')){
+          <mat-error>Lastname is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Email
+        </mat-label>
+        <input id="email" type="email" formControlName="email" matInput />
+        @if (email?.hasError('required')){
+          <mat-error>email is required</mat-error>
+        }
+        @else if (email?.hasError('email'))
+        {
+          <mat-error>please enter valid email address</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-2">
+        <mat-label>
+          Password
+        </mat-label>
+        <input id="password" type="password" formControlName="password" matInput />
+        @if (!password?.value){
+          <mat-hint>Must be at least 8 characters</mat-hint>
+        }
+        @if (password?.hasError('required')){
+          <mat-error>password is required</mat-error>
+        } @else if (password?.hasError('minlength'))
+        {
+          <mat-error>password must be a at least 8 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Role
+        </mat-label>
+        <input id="role" type="text" formControlName="role" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Phone number
+        </mat-label>
+        <input id="phonenumber" type="text" formControlName="phonenumber" matInput />
+        @if (phonenumber?.hasError('required')){
+          <mat-error>phone number is required</mat-error>
+        }
+        @else if (phonenumber?.hasError('pattern'))
+        {
+          <mat-error>Please enter a valid phone number </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Date of birth
+        </mat-label>
+        <input id="dob" formControlName="dob" matInput [matDatepicker]="picker" />
+        <mat-hint>MM-DD-YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (dob?.hasError('required')){
+          <mat-error>date of birth is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mb-3">
+        <mat-label>
+          Address
+        </mat-label>
+        <input id="address" type="text" formControlName="address" matInput />
+        @if (!address?.value){
+          <mat-hint>Must be at least 4 characters</mat-hint>
+        }
+        @if (address?.hasError('required')){
+          <mat-error>address is required</mat-error>
+        } @else if (address?.hasError('minlength'))
+        {
+          <mat-error>address must be a at least 4 characters</mat-error>
+        }
+      </mat-form-field>
+
+    </mat-card-content>
+
+    <mat-card-actions class="my-2">
+      <button class="ms-3" type="submit" mat-raised-button [disabled]="userForm.invalid">Submit</button>
+    </mat-card-actions>
+
+  </mat-card>
+</form>

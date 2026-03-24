@@ -1,0 +1,35 @@
+@endpointAuth = http://localhost:3000/api/v1/auth
+@endpointUsers = http://localhost:3000/api/v1/users
+
+@endpointCart = http://localhost:3000/api/v1/cart
+
+@idUser = 6941e11efc5e19b1e5df9e00
+# @name login
+
+POST {{endpointAuth}} HTTP/1.1
+content-type: application/json
+
+{ 
+    "email": "alex.ferguson@gmail.com",
+    "password": "2password12345"
+}
+
+
+###
+@accessToken = {{login.response.body.accessToken}}
+
+
+DELETE http://localhost:3000/api/v1/users/{{idUser}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+
+###
+### POST Request for a cart
+POST {{endpointCart}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{ 
+  "productId": "68ffb13529d434897dcb235f"
+}

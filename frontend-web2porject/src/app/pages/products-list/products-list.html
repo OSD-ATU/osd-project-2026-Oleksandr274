@@ -1,0 +1,43 @@
+<mat-sidenav-container class="h-full m-1">
+  <mat-sidenav mode="side" opened="true">
+    <div class="p-6">
+      <h2 class="text-lg text-gray-900">Categories</h2>
+    </div>
+
+    <mat-nav-list>
+      <mat-list-item class="my-2" [activated]="category() === '' " [routerLink]="['/products']">
+        <span matListItemTitle [class]="category() === '' ? '!text-white':null">All</span>
+      </mat-list-item>
+      @for (cat of categories(); track cat) {
+      <mat-list-item [activated]="cat === category()" class="my-2" [routerLink]="['/products']"
+        [queryParams]="{category: cat}">
+        <span matListItemTitle [class]="cat === category() ? '!text-white' : null">
+          {{cat | titlecase}}
+        </span>
+      </mat-list-item>
+      }
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  @if (products$ | async; as products){
+  <mat-sidenav-content class="bg-gray-100 p-6 h-full ml-2">
+    <h1 class="text-2xl font-bold text-gray-900 mb-1">
+      {{category()===''? 'All Products' : category() | titlecase}}
+    </h1>
+    <p class="text-base text-gray-600 mb-6" >
+      {{products.length}} products found
+    </p>
+    <div class="responsive-grid">
+      @for (product of products; track product._id) {
+
+      <app-product-card [product]="product" />
+      }
+    </div>
+  </mat-sidenav-content>
+  } @else{
+  <mat-sidenav-content class="bg-gray-100 p-6 h-full">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Products Not Found</h1>
+  </mat-sidenav-content>
+  }
+</mat-sidenav-container>
