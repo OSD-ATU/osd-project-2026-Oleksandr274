@@ -1,1 +1,80 @@
-<p>admin-products-list works!</p>
+@if (products$ | async; as products){
+<div class="container p-3">
+
+  <!-- @if(currentUser$.getValue()?.role === "admin"){
+  <div class="w-75">
+    <h4>Select User</h4>
+    <mat-form-field>
+      <mat-label>User ID</mat-label>
+      <mat-select [(value)]="selectedUser">
+        <mat-option [value]="" [routerLink]="['/orders']">
+          All
+        </mat-option>
+        @if( users$ | async; as users){
+          @for (user of users; track user._id) {
+          <mat-option [value]="user._id" [routerLink]="['/orders']" [queryParams]="{userId: user._id}">
+            {{user._id}}
+          </mat-option>
+          }
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  } -->
+
+  <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+      <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
+        <tr>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Product ID
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Product Name
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Date Posted
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Price
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Category
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Brand
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products; track product._id) {
+        <tr class="bg-neutral-primary-soft bproduct-b bproduct-default hover:bg-red-200 cursor-pointer"
+        [routerLink]="[`/products/${product._id}`]"
+        >
+          <td class="px-6 py-4 font-medium text-heading whitespace-nowrap" >
+            {{product._id}}
+          </td>
+          <td class="px-6 py-4">
+            {{product.title}}
+          </td>
+          <td class="px-6 py-4">
+            {{product.datePosted}}
+          </td>
+          <td class="px-6 py-4">
+            {{product.price | currency:'EUR'}}
+          </td>
+          <td class="px-6 py-4">
+            {{product.category}}
+          </td>
+          <td class="px-6 py-4">
+            {{product.brand}}
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+}@else {
+  Loading...
+}
