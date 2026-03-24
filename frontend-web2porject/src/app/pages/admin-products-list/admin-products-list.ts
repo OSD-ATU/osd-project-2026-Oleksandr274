@@ -48,13 +48,4 @@ export class AdminProductsList {
 
   }
 
-  userEffect = effect(() => {
-    if (this.currentUser$.getValue()?.role === 'admin') {
-      this.getListOfProducts()
-    }
-  });
-
-  getListOfProducts(): void {
-      this.products$ = this.productService.getProducts('');
-  }
 }
