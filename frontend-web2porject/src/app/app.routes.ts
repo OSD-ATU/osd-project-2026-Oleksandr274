@@ -9,11 +9,13 @@ import { Orders } from './pages/orders/orders';
 import { authGuard } from './services/auth-guard';
 import { OrderDetails } from './pages/order-details/order-details';
 import { adminGuard } from './services/admin-guard';
+import { AdminProductsList } from './pages/admin-products-list/admin-products-list';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/products', pathMatch: 'full'},
   {path: 'products', component: Products, title: 'Store page' },
-  {path: 'products/create', component: ProductForm, canActivate: [adminGuard],  title: 'Product form' },
+  {path: 'admin/products', component: AdminProductsList, canActivate: [adminGuard], title: 'Store Products' },
+  {path: 'admin/products/create', component: ProductForm, canActivate: [adminGuard],  title: 'Product form' },
   {path: 'products/:id', component: ProductDetails, title: 'Product details' },
   {path: 'register', component: Register },
   {path: 'login', component: Login},
