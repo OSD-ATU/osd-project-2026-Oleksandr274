@@ -1,8 +1,10 @@
 <div class="flex items-center gap-2">
-  @if (isAuthenticated && currentUser$.getValue()?.role != 'admin') {
-  <button class="relative" matIconButton [routerLink]="['/cart']">
-    <mat-icon [matBadge]="userCart.length" aria-hidden="false">shopping_cart</mat-icon>
-  </button>
+  @if (isAuthenticated) {
+    @if(currentUser$.getValue()?.role != 'admin'){
+      <button class="relative" matIconButton [routerLink]="['/cart']">
+        <mat-icon [matBadge]="userCart.length" aria-hidden="false">shopping_cart</mat-icon>
+      </button>
+    }
     <span class="mat-small mx-3 cursor-pointer" [routerLink]="['/orders']">{{currentUser$.getValue()?.email}}</span>
     <button matButton="outlined" (click)="onLogOut()">
       Log Out
