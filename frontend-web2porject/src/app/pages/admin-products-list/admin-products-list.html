@@ -22,12 +22,15 @@
   </div>
   } -->
 
-  <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
-    <table class="w-full text-sm text-left rtl:text-right text-body">
-      <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
-        <tr>
+  <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base ">
+    <table class="w-full text-sm text-left rtl:text-right text-body border border-default">
+      <thead class="text-sm text-body ">
+        <tr class="border border-default">
           <th scope="col" class="px-6 py-3 font-medium">
             Product ID
+          </th>
+          <th scope="col" class="px-6 py-3 font-medium">
+            Product Image
           </th>
           <th scope="col" class="px-6 py-3 font-medium">
             Product Name
@@ -48,17 +51,20 @@
       </thead>
       <tbody>
         @for (product of products; track product._id) {
-        <tr class="bg-neutral-primary-soft bproduct-b bproduct-default hover:bg-red-200 cursor-pointer"
+        <tr class="bg-neutral-primary-soft hover:bg-red-200 cursor-pointer border border-default"
         [routerLink]="[`/products/${product._id}`]"
         >
           <td class="px-6 py-4 font-medium text-heading whitespace-nowrap" >
             {{product._id}}
           </td>
+          <td class="py-4 ">
+            <img [src]="product.images[0]" [alt]="product.title" class="w-20 rounded border border-1 mx-auto">
+          </td>
           <td class="px-6 py-4">
             {{product.title}}
           </td>
           <td class="px-6 py-4">
-            {{product.datePosted}}
+            {{product.datePosted | date: 'dd/MM/yyyy'}}
           </td>
           <td class="px-6 py-4">
             {{product.price | currency:'EUR'}}
