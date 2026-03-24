@@ -8,11 +8,11 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { Product } from '../../models/product.interface';
 import { ProductService } from '../../services/product.service';
 import { MatButton } from '@angular/material/button';
-import { ConfirmDialog } from '../../shared-conponents/confirm-dialog/confirm-dialog';
+import { ConfirmDialog } from '../../shared-components/confirm-dialog/confirm-dialog';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../../models/user.interface';
 import { AuthCustomService } from '../../services/auth-custom.service';
-import { UpdateOrderDialog } from '../../shared-conponents/update-order-dialog/update-order-dialog';
+import { UpdateOrderDialog } from '../../shared-components/update-order-dialog/update-order-dialog';
 
 @Component({
   selector: 'app-order-details',

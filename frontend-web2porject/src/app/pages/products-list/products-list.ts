@@ -3,7 +3,7 @@ import { ProductService } from '../../services/product.service';
 import { Observable } from 'rxjs';
 import { Product } from '../../models/product.interface';
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
-import { ProductCard } from "../../shared-conponents/product-card/product-card";
+import { ProductCard } from "../../shared-components/product-card/product-card";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatNavList, MatListItem, MatListItemTitle } from '@angular/material/list'
 import { ActivatedRoute, RouterLink } from '@angular/router';

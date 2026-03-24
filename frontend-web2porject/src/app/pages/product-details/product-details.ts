@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../../models/product.interface';
 import { AsyncPipe, CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
-import { ConfirmDialog } from '../../shared-conponents/confirm-dialog/confirm-dialog';
+import { ConfirmDialog } from '../../shared-components/confirm-dialog/confirm-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIcon } from "@angular/material/icon";
