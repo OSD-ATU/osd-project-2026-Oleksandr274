@@ -1,12 +1,14 @@
 @if (cartItems){
 <div class="container flex-grow lg:py-10 max-w-[1200px] mx-auto py-5">
-  <h2 class="text-2xl font-bold">Shopping Cart</h2>
-  <p class="text-gray-600 text">
-    Items in your cart {{cartItems.length}}
-  </p>
+  <div class="ml-8 mb-2">
+    <h2 class="text-2xl font-bold">Shopping Cart</h2>
+    <p class="text-gray-600 text">
+      Items in your cart {{cartItems.length}}
+    </p>
+  </div>
 
   <div class="w-full flex flex-col sm:flex-row ">
-    <div class="">
+    <div class="border shadow-md">
       @for (cartItem of cartItems; track cartItem.productId) {
       <div class="grid grid-cols-3 grid-cols-[2fr_1fr_1fr] bg-gray-50 shadow-sm">
         <div class="flex items-center gap-3">
@@ -43,7 +45,7 @@
 
     </div>
 
-    <section class="md:max-w-[400px] ml-8 px-4 w-full">
+    <section class="md:max-w-[500px] ml-8 px-4 w-full text-lg">
     <div>
       <div class="border px-4 py-5 shadow-md">
         <p class="font-bold">Order Summary</p>
