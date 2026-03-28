@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 
 import { Header } from "./shared-components/header/header";
 
@@ -11,4 +11,6 @@ import { Header } from "./shared-components/header/header";
 })
 export class App {
   protected readonly title = signal('frontend-web2porject');
+
+  router = inject(Router)
 }

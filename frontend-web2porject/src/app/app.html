@@ -1,2 +1,4 @@
-<app-header/>
+@if (router.url !== '/payment-success' &&  router.url !== '/payment-cancel') {
+  <app-header />
+} 
 <router-outlet />
