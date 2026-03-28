@@ -14,7 +14,7 @@
         <div class="flex items-center gap-3">
 
           <img class="w-24 h-24 rounded-lg object-cover"
-            [src]="getCartProduct(cartItem.productId)!!.images[0] || 'public/favicon.ico' "
+            [src]="getCartProduct(cartItem.productId)!.images[0] || 'public/favicon.ico' "
             [alt]="getCartProduct(cartItem.productId)">
 
           <div>
@@ -62,7 +62,7 @@
           <p>{{9999999 | currency:'EUR'}}</p>
         </div> 
         <mat-card-actions class="my-2">
-          <button matButton="filled" class="me-5">
+          <button matButton="filled" class="me-5" (click)="onCheckout()">
             Proceed to Payment
           </button>
         </mat-card-actions>

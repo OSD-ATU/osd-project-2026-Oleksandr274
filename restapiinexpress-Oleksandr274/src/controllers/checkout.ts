@@ -8,10 +8,6 @@ const PORT = process.env.PORT || 3001;
 const DOMAIN = `http://localhost:${PORT}`;
 
 export const createCheckoutSession = async (req: Request, res: Response) => {
-  const prices = await stripe.prices.list({
-    lookup_keys: [req.body.lookup_key],
-    expand: ['data.product'],
-  });
   try {
     const items = req.body.items as Item[]
 
@@ -21,23 +17,25 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
           currency: 'usd',
           product_data: {
             name: item.productId.toString(),
-            // images: [item.productId]
+            images: ['https://placehold.co/600x400/EEE/31343C']
           },
           unit_amount: 100 * 100, //cents
         },
         quantity: item.quantity
       })),
       mode: 'payment',
-      success_url: `${DOMAIN}/success.html`,
-      cancel_url: `${DOMAIN}/cancel.html`,
+      success_url: "http://localhost:4200/payment-result?success=true&session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: "http://localhost:4200/payment-result?success=false&session_id={CHECKOUT_SESSION_ID}",
 
     });
-    res.redirect(303, session.url!);
+    res.json({ url: session.url });
   }
   catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ error: "Checkout session failed" });
   }
-
 }
+
+
 
 

@@ -18,6 +18,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../models/order.interface';
+import { CheckoutService } from '../../services/checkout.service';
+import { loadStripe } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -30,6 +32,7 @@ export class ShoppingCart implements OnInit {
   private cartService = inject(UserCartService);
   private productService = inject(ProductService)
   private orderService = inject(OrderService)
+  private checkoutService = inject(CheckoutService)
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -75,8 +78,12 @@ export class ShoppingCart implements OnInit {
   }
 
   onCheckout() {
+    this.checkoutService.checkout(this.cartItems!);
+    // .subscribe(async (res:any) => {
 
-    this.placeOrder(this.orderForm.value)
+    //   let stripe = await loadStripe('pk_test_51TD2f2RQiGwu6QGyJO029B15e1n9W3qkUhgJG2QyllYcNgPCuD69ZYJFfVc8UQrE5jJjsYixD4WaNmpFXiFOfAY300vCoUMtKB');
+    // })
+    // this.placeOrder(this.orderForm.value)
   }
 
   placeOrder(orderInfo: any) {
