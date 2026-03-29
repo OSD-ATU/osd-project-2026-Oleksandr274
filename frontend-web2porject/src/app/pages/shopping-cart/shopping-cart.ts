@@ -18,6 +18,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../models/order.interface';
+import { CheckoutService } from '../../services/checkout.service';
+import { loadStripe } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -30,6 +32,7 @@ export class ShoppingCart implements OnInit {
   private cartService = inject(UserCartService);
   private productService = inject(ProductService)
   private orderService = inject(OrderService)
+  private checkoutService = inject(CheckoutService)
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -75,8 +78,17 @@ export class ShoppingCart implements OnInit {
   }
 
   onCheckout() {
+    this.checkoutService.checkout(this.cartItems!).subscribe(
+      async (res) => {
+        await this.placeOrder(this.orderForm.value)
+        console.log(res);
+        window.location.href = res.url; //redirect
+      },
+      (err) => {
+        console.log('err:' + err.message);
+      }
+    )
 
-    this.placeOrder(this.orderForm.value)
   }
 
   placeOrder(orderInfo: any) {
@@ -89,19 +101,15 @@ export class ShoppingCart implements OnInit {
         eircode: orderInfo['eircode'],
         phone: orderInfo['phone']
       }
-      this.orderService.createOrder(order).subscribe({
-        next: res => {
-          this.cartService.emptyUserCart().subscribe()
-          
-          let message = "Order successfully placed";
-          this.openSuccessSnackBar(message);
-          this.router.navigateByUrl('/orders');
+      this.orderService.createOrder(order).subscribe(
+        (res) => {
+
         },
-        error: (err: Error) => {
+        (err: Error) => {
           console.log(err.message);
           this.openErrorSnackBar(err.message);
-        }
-      })
+
+        })
     }
   }
 

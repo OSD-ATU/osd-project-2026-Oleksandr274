@@ -10,6 +10,8 @@ import { authGuard } from './services/auth-guard';
 import { OrderDetails } from './pages/order-details/order-details';
 import { adminGuard } from './services/admin-guard';
 import { AdminProductsList } from './pages/admin-products-list/admin-products-list';
+import { PaymentSuccess } from './pages/payment-success/payment-success';
+import { PaymentCancel } from './pages/payment-cancel/payment-cancel';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/products', pathMatch: 'full'},
@@ -22,4 +24,6 @@ export const routes: Routes = [
   {path: 'cart', component: ShoppingCart, canActivate: [authGuard], title: "Shopping Cart"},
   {path: 'orders', component: Orders},
   {path: 'orders/:id', component: OrderDetails, title: 'Order details' },
+  {path: 'payment-success', component: PaymentSuccess, title: 'Payment success' },
+  {path: 'payment-cancel', component: PaymentCancel, title: 'Payment cancel' },
 ];

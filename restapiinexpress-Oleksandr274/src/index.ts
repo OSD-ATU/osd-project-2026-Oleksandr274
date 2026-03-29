@@ -4,6 +4,7 @@ import productRoutes from './routes/products';
 import orderRoutes from './routes/orders';
 import authRoutes from './routes/auth';
 import cartRoutes from './routes/cart';
+import checkoutRoutes from './routes/checkout';
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { initDb } from "./database";
@@ -23,6 +24,11 @@ initDb();
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
+
+dotenv.config();
+
+
 
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
@@ -33,6 +39,7 @@ app.use('/api/v1/products', productRoutes)
 app.use('/api/v1/orders', validJWTProvided, orderRoutes)
 app.use('/api/v1/auth', authRoutes )
 app.use('/api/v1/cart', validJWTProvided, cartRoutes)
+app.use('/api/v1/checkout', validJWTProvided, checkoutRoutes)
 
 app.get("/ping", async (_req : Request, res: Response) => {
     res.json({ message: "hello from Alex" });
