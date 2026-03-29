@@ -11,7 +11,8 @@ import { Order } from '../models/order.interface';
 export class OrderService {
   private http = inject(HttpClient);
 
-  private orderUri = `${environment.apiUri}/orders`
+  private orderUri = `${environment.apiUri}/orders`;
+  private orderLambdaUri = `${environment.lambdaUri}`
 
   createOrder(orderData: Order): Observable<any> {
     return this.http.post<any>(this.orderUri, orderData)
@@ -47,9 +48,13 @@ export class OrderService {
   updateOrder(id: string, status: string): Observable<Order> {
     return this.http.put<Order>(`${this.orderUri}/${id}`, {status: status})
   }
-
+  
   deleteOrder(id: string): Observable<Order> {
     return this.http.delete<Order>(`${this.orderUri}/${id}`)
+  }
+
+  getOrderStats(){
+    return this.http.get<any>(this.orderLambdaUri)
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

@@ -8,11 +8,11 @@ import { User } from '../../models/user.interface';
 import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatSelect, MatOption } from "@angular/material/select";
 import { UserService } from '../../services/user.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
-  imports: [AsyncPipe, CurrencyPipe, MatFormField, MatLabel, MatSelect, MatOption, RouterLink],
+  imports: [AsyncPipe, CurrencyPipe, MatFormField, MatLabel, MatSelect, MatOption, RouterLink, RouterLinkActive],
   templateUrl: './orders.html',
   styleUrl: './orders.scss',
 })
@@ -25,7 +25,12 @@ export class Orders implements OnInit {
   currentUser$: BehaviorSubject<User | null>
   users$?: Observable<User[]>
 
+
   selectedUser = signal<string>(''); //default
+  noTotalOrders = signal<number>(0);
+  noPlacedOrders = signal<number>(0);
+  noShippedOrders = signal<number>(0);
+  noDeliveredOrders = signal<number>(0);
 
   constructor() {
     this.currentUser$ = this.authService.currentUser$
@@ -35,6 +40,14 @@ export class Orders implements OnInit {
     if (this.currentUser$.getValue()?.role === 'admin') {
       this.users$ = this.userService.getAllUsers()
       this.orders$ = this.orderService.getAllOrders();
+      this.orderService.getOrderStats().subscribe(
+        (res) => {
+          this.noTotalOrders.set(res.body.noTotalOrders);
+          this.noPlacedOrders.set(res.body.noPlacedOrders);
+          this.noShippedOrders.set(res.body.noShippedOrders);
+          this.noDeliveredOrders.set(res.body.noDeliveredOrders);
+        }
+      )
 
       this.route.queryParamMap.subscribe(params => {
         const userIdParam = params.get('userId');

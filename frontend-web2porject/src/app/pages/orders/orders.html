@@ -2,7 +2,23 @@
 <div class="container p-3">
 
   @if(currentUser$.getValue()?.role === "admin"){
-  <div class="w-75">
+  <div class="grid grid-cols-4 gap-4 bg-gray-100 p-3 text-lg">
+    <div class="">
+      Total number of Orders: {{noTotalOrders()}}
+    </div>
+    <div class="">
+      Placed Orders: {{noPlacedOrders()}}
+    </div>
+    <div class="">
+      Shipped Orders: {{noShippedOrders() }}
+    </div>
+    <div class="">
+      Delivered Orders: {{noDeliveredOrders()}}
+    </div>
+  </div>
+
+
+  <div class="w-75 mt-2">
     <h4>Select User</h4>
     <mat-form-field>
       <mat-label>User ID</mat-label>
@@ -11,11 +27,11 @@
           All
         </mat-option>
         @if( users$ | async; as users){
-          @for (user of users; track user._id) {
-          <mat-option [value]="user._id" [routerLink]="['/orders']" [queryParams]="{userId: user._id}">
-            {{user._id}}
-          </mat-option>
-          }
+        @for (user of users; track user._id) {
+        <mat-option [value]="user._id" [routerLink]="['/orders']" [queryParams]="{userId: user._id}">
+          {{user._id}}
+        </mat-option>
+        }
         }
       </mat-select>
     </mat-form-field>
@@ -52,10 +68,8 @@
       <tbody>
         @for (order of orders; track order._id) {
         <tr class="bg-neutral-primary-soft border-b border-default hover:bg-red-200 cursor-pointer"
-        [routerLink]="[`/orders/${order._id}`]" 
-        [class]="order.status"
-        >
-          <td class="px-6 py-4 font-medium text-heading whitespace-nowrap" >
+          [routerLink]="[`/orders/${order._id}`]" [class]="order.status">
+          <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">
             {{order._id}}
           </td>
           <td class="px-6 py-4">
@@ -83,5 +97,5 @@
   </div>
 </div>
 }@else {
-  Loading...
+Loading...
 }
