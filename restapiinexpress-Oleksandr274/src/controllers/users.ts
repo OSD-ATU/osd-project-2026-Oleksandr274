@@ -30,7 +30,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
   //get a single  user by ID
-  let id: string = req.params.id;
+  let id: any = req.params.id;
   try {
     const query = { _id: new ObjectId(id) };
     const user = (await collections.users?.findOne(query, {projection : {hashedPassword:false}})) as unknown as User;
@@ -109,7 +109,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   //update a user in the database
-  let id: string = req.params.id;
+  let id: any = req.params.id;
 
   // validtion of received data
   const validation = updateUserSchema.safeParse(req.body);
@@ -156,7 +156,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   // logic to delete user by ID from the database
-  let id: string = req.params.id;
+  let id: any = req.params.id;
   try {
     const result = await collections.users?.deleteOne({ "_id": new ObjectId(id) })
 

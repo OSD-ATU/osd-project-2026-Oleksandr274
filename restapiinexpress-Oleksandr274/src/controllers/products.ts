@@ -41,7 +41,7 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response) => {
   //get a single  product by ID
-  let id: string = req.params.id;
+  let id: any = req.params.id;
   try {
     const query = { _id: new ObjectId(id) };
     const product = (await collections.products?.findOne(query)) as unknown as Product;
@@ -103,7 +103,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const updateProduct = async (req: Request, res: Response) => {
   //update a product in the database
-  let id: string = req.params.id;
+  let id: any = req.params.id;
 
   // validtion of received data
   const validation = updateProductSchema.safeParse(req.body);
@@ -153,7 +153,7 @@ export const updateProduct = async (req: Request, res: Response) => {
 
 export const deleteProduct = async (req: Request, res: Response) => {
   // logic to delete product by ID from the database
-  let id: string = req.params.id;
+  let id: any = req.params.id;
   try {
     const result = await collections.products?.deleteOne({ "_id": new ObjectId(id) })
 

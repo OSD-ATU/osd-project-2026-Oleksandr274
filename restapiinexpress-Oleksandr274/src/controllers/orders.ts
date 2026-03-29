@@ -34,7 +34,7 @@ export const getOrders = async (req: Request, res: Response) => {
 
 export const getOrderById = async (req: Request, res: Response) => {
   //get a single order by ID
-  let id: string = req.params.id;
+  let id: any = req.params.id;
 
   const role: any = res.locals.payload.role
   let userId: any;
@@ -192,7 +192,7 @@ export const createOrder = async (req: Request, res: Response) => {
 
 export const updateOrderStatus = async (req: Request, res: Response) => {
   //update order status in the database
-  let id: string = req.params.id;
+  let id: any = req.params.id;
 
   const updatedOrder = {
     status: req.body.status
@@ -224,7 +224,7 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
 
 export const deleteOrder = async (req: Request, res: Response) => {
   // logic to delete order by ID from the database
-  let id: string = req.params.id;
+  let id: any = req.params.id;
 
   try {
     //get the requested order
