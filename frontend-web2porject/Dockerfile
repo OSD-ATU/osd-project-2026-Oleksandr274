@@ -10,8 +10,8 @@ WORKDIR /app
 COPY . .
 # line 12 install node libraries
 RUN npm install
-# line 14 same as ng build :-)
-RUN npm run build
+# line 14 same as ng build
+RUN npm run build --configuration=production
 # line 16 add another image to build base, the nginx web server
 FROM nginx:alpine
 # line 18 copy the buit application to the nginx root dir at /html
