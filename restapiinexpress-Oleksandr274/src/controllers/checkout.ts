@@ -6,6 +6,7 @@ import { Item } from '../models/item';
 import { ObjectId } from 'mongodb';
 import { collections } from '../database';
 import { Product } from '../models/products';
+import { success } from 'zod';
 
 const PORT = process.env.PORT || 3001;
 
@@ -31,12 +32,10 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
       }
     }
 
-    console.log(productsList.find(p=>p._id == items[0].productId));
-
     const session = await stripe.checkout.sessions.create({
       line_items: items.map((item: Item) => ({
         price_data: {
-          currency: 'usd',
+          currency: 'EUR',
           product_data: {
             name: productsList.find(p =>p._id == item.productId).title ,
             images: [productsList.find(p =>p._id == item.productId).images[0]]
@@ -50,7 +49,7 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
       cancel_url: "http://localhost:4200/payment-cancel",
 
     });
-    res.json({ url: session.url });
+    res.json({ url: session.url, payment_status: session.payment_status });
   }
   catch (error) {
     console.error(error);

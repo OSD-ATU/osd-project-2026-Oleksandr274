@@ -78,12 +78,17 @@ export class ShoppingCart implements OnInit {
   }
 
   onCheckout() {
-    this.checkoutService.checkout(this.cartItems!);
-    // .subscribe(async (res:any) => {
+    this.checkoutService.checkout(this.cartItems!).subscribe(
+      async (res) => {
+        await this.placeOrder(this.orderForm.value)
+        console.log(res);
+        window.location.href = res.url; //redirect
+      },
+      (err) => {
+        console.log('err:' + err.message);
+      }
+    )
 
-    //   let stripe = await loadStripe('pk_test_51TD2f2RQiGwu6QGyJO029B15e1n9W3qkUhgJG2QyllYcNgPCuD69ZYJFfVc8UQrE5jJjsYixD4WaNmpFXiFOfAY300vCoUMtKB');
-    // })
-    // this.placeOrder(this.orderForm.value)
   }
 
   placeOrder(orderInfo: any) {
@@ -96,19 +101,20 @@ export class ShoppingCart implements OnInit {
         eircode: orderInfo['eircode'],
         phone: orderInfo['phone']
       }
-      this.orderService.createOrder(order).subscribe({
-        next: res => {
+      this.orderService.createOrder(order).subscribe(
+        (res) => {
+          console.log("now empty the cart")
           this.cartService.emptyUserCart().subscribe()
-          
-          let message = "Order successfully placed";
-          this.openSuccessSnackBar(message);
-          this.router.navigateByUrl('/orders');
+
+          // let message = "Order successfully placed";
+          // this.openSuccessSnackBar(message);
+          // this.router.navigateByUrl('/orders');
         },
-        error: (err: Error) => {
+        (err: Error) => {
           console.log(err.message);
           this.openErrorSnackBar(err.message);
-        }
-      })
+
+        })
     }
   }
 

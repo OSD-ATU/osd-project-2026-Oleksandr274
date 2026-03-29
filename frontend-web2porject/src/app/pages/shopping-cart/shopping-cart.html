@@ -45,100 +45,93 @@
 
     </div>
 
-    <section class="md:max-w-[500px] ml-8 px-4 w-full text-lg">
-    <div>
-      <div class="border px-4 py-5 shadow-md">
-        <p class="font-bold">Order Summary</p>
-        <div class="border-b flex justify-between py-5">
-          <p>Subtotal</p>
-          <p>{{9999999 | currency:'EUR'}}</p>
-        </div>
-        <div class="border-b flex justify-between py-5">
-          <p>Shipping</p>
-          <p>Free</p>
-        </div>
-        <div class="flex justify-between py-5">
-          <p>Total</p>
-          <p>{{9999999 | currency:'EUR'}}</p>
-        </div> 
-        <mat-card-actions class="my-2">
-          <button matButton="filled" class="me-5" (click)="onCheckout()">
-            Proceed to Payment
-          </button>
-        </mat-card-actions>
+    <section class="md:max-w-[500px] ml-8 px-4 w-full text-md">
+      <div>
+        <form [formGroup]="orderForm" class="border px-4 py-5 shadow-md">
+          <mat-card>
+            <mat-card-header class="mb-2 text-lg">Shipping Details</mat-card-header>
+
+            <mat-card-content>
+              <mat-form-field appearance="outline" class="mb-2">
+                <mat-label>
+                  Shipping Address 1
+                </mat-label>
+                <input id="shippingAddress1" type="text" formControlName="shippingAddress1" matInput />
+                @if (shippingAddress1?.hasError('required')){
+                <mat-error>shipping address 1 is required</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="mb-2">
+                <mat-label>
+                  Shipping Address 2
+                </mat-label>
+                <input id="shippingAddress2" type="text" formControlName="shippingAddress2" matInput />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="mb-2">
+                <mat-label>
+                  City
+                </mat-label>
+                <input id="city" type="text" formControlName="city" matInput />
+                @if (city?.hasError('required')){
+                <mat-error>city is required</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="mb-2">
+                <mat-label>
+                  Eircode
+                </mat-label>
+                <input id="eircode" type="text" formControlName="eircode" matInput />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="mb-2">
+                <mat-label>
+                  Phone
+                </mat-label>
+                <input id="phone" type="text" formControlName="phone" matInput />
+                @if (phone?.hasError('required')){
+                <mat-error>phone number is required</mat-error>
+                }
+                @else if (phone?.hasError('pattern'))
+                {
+                <mat-error>Please enter a valid phone number </mat-error>
+                }
+              </mat-form-field>
+            </mat-card-content>
+
+          </mat-card>
+
+
+          <div class="mt-4 px-6 py-4 shadow-md">
+            <p class="font-bold">Order Summary</p>
+            <div class="border-b flex justify-between py-5">
+              <p>Subtotal</p>
+              <p>{{9999999 | currency:'EUR'}}</p>
+            </div>
+            <div class="border-b flex justify-between py-5">
+              <p>Shipping</p>
+              <p>Free</p>
+            </div>
+            <div class="flex justify-between py-5">
+              <p>Total</p>
+              <p>{{9999999 | currency:'EUR'}}</p>
+            </div>
+            <mat-card-actions class="my-2">
+              <button matButton="filled" class="me-5" [disabled]="!orderForm.valid" (click)="onCheckout()">
+                Proceed to Payment
+              </button>
+            </mat-card-actions>
+          </div>
+
+        </form>
       </div>
-    </div>
-  </section>
-
-    <!-- <form [formGroup]="orderForm" (ngSubmit)="onCheckout()" class="user-form sm:w-1/2 ml-2 sm:ml-0">
-
-      <mat-card>
-        <mat-card-header class="mb-3 text-lg">Enter Details</mat-card-header>
-
-        <mat-card-content>
-          <mat-form-field appearance="outline" class="mb-3">
-            <mat-label>
-              Shipping Address 1
-            </mat-label>
-            <input id="shippingAddress1" type="text" formControlName="shippingAddress1" matInput />
-            @if (shippingAddress1?.hasError('required')){
-            <mat-error>shipping address 1 is required</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="mb-3">
-            <mat-label>
-              Shipping Address 2
-            </mat-label>
-            <input id="shippingAddress2" type="text" formControlName="shippingAddress2" matInput />
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="mb-3">
-            <mat-label>
-              City
-            </mat-label>
-            <input id="city" type="text" formControlName="city" matInput />
-            @if (city?.hasError('required')){
-            <mat-error>city is required</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="mb-3">
-            <mat-label>
-              Eircode
-            </mat-label>
-            <input id="eircode" type="text" formControlName="eircode" matInput />
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="mb-3">
-            <mat-label>
-              Phone
-            </mat-label>
-            <input id="phone" type="text" formControlName="phone" matInput />
-            @if (phone?.hasError('required')){
-            <mat-error>phone number is required</mat-error>
-            }
-            @else if (phone?.hasError('pattern'))
-            {
-            <mat-error>Please enter a valid phone number </mat-error>
-            }
-          </mat-form-field>
+    </section>
 
 
-        </mat-card-content>
-
-        <mat-card-actions class="my-2">
-          <button matButton="filled" class="me-5" [disabled]="orderForm.invalid">
-            Checkout
-          </button>
-        </mat-card-actions>
-
-      </mat-card>
-    </form> -->
   </div>
 </div>
-
-
 
 
 } @else{

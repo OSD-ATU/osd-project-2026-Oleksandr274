@@ -14,15 +14,7 @@ export class CheckoutService {
   private checkoutUri = `${environment.apiUri}/checkout`
 
   checkout(items: CartItem[]) {
-    return this.http.post<any>(this.checkoutUri, { items: items }).subscribe(
-      (res) => {
-        console.log(res);
-       window.location.href = res.url; //redirect
-      },
-      (err) => {
-        console.log('err:' + err.message);
-      }
-    )
+    return this.http.post<any>(this.checkoutUri, { items: items });
   }
 
 }
