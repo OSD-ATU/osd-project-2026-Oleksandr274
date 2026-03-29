@@ -12,6 +12,9 @@ const PORT = process.env.PORT || 3001;
 
 export const createCheckoutSession = async (req: Request, res: Response) => {
   try {
+    const sucessUrl = req.body.success_url
+    const cancelUrl = req.body.cancel_url
+
     const items = req.body.items as Item[]
     let productsList: any[] = [];
     // find products from items list
@@ -45,8 +48,8 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
         quantity: item.quantity
       })),
       mode: 'payment',
-      success_url: "http://localhost:4200/payment-success",
-      cancel_url: "http://localhost:4200/payment-cancel",
+      success_url: sucessUrl,
+      cancel_url: cancelUrl,
 
     });
     res.json({ url: session.url, payment_status: session.payment_status });

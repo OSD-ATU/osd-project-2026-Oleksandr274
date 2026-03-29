@@ -12,7 +12,6 @@ import { adminGuard } from './services/admin-guard';
 import { AdminProductsList } from './pages/admin-products-list/admin-products-list';
 import { PaymentSuccess } from './pages/payment-success/payment-success';
 import { PaymentCancel } from './pages/payment-cancel/payment-cancel';
-import { AdminStoreStats } from './pages/admin-store-stats/admin-store-stats';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/products', pathMatch: 'full'},
@@ -27,5 +26,4 @@ export const routes: Routes = [
   {path: 'orders/:id', component: OrderDetails, title: 'Order details' },
   {path: 'payment-success', component: PaymentSuccess, title: 'Payment success' },
   {path: 'payment-cancel', component: PaymentCancel, title: 'Payment cancel' },
-  {path: 'admin/stats', component: AdminStoreStats, title: 'Store Stats' },
 ];

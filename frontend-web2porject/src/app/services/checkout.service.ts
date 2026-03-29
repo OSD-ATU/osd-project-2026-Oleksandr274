@@ -14,7 +14,11 @@ export class CheckoutService {
   private checkoutUri = `${environment.apiUri}/checkout`
 
   checkout(items: CartItem[]) {
-    return this.http.post<any>(this.checkoutUri, { items: items });
+    return this.http.post<any>(this.checkoutUri, { 
+      items: items,
+      success_url: `${window.location.origin}/payment-success`,
+      cancel_url: `${window.location.origin}/payment-cancel`
+    });
   }
 
 }
