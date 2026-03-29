@@ -103,12 +103,7 @@ export class ShoppingCart implements OnInit {
       }
       this.orderService.createOrder(order).subscribe(
         (res) => {
-          console.log("now empty the cart")
-          this.cartService.emptyUserCart().subscribe()
 
-          // let message = "Order successfully placed";
-          // this.openSuccessSnackBar(message);
-          // this.router.navigateByUrl('/orders');
         },
         (err: Error) => {
           console.log(err.message);
