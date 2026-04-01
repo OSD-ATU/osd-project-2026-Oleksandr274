@@ -16,7 +16,6 @@ export interface User {
     dateJoined: Date;
     lastUpdated: Date;
     cartData: Item[]; 
-    
 }
 
 enum role {admin, editor, ''}
@@ -36,9 +35,9 @@ export const updateUserSchema = z.object({
     firstName: z.string().min(1).optional(),
     lastName: z.string().min(1).optional(),
     phonenumber: z.string().regex(/^\+(353)\d{9}$/).trim().optional(),
-    // email: z.email().optional() this field should not be updated
+
     password: z.string().min(8).max(64).optional(),
-    // dob: z.coerce.date().optional() this field should not be updated
+
     address: z.string().min(4).optional(),
 }).strict();
 
