@@ -65,7 +65,7 @@ export const createProduct = async (req: Request, res: Response) => {
   // create a new product in the database
   console.log(req.body);
 
-  const { title, images, category, price, brand, condition, description } = req.body;
+  const { title, images, category, price, brand, description } = req.body;
   const newproduct: Product = { 
     title: title,
     images: images,
@@ -115,7 +115,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     });
   }
 
-  const { title, images, category, price, brand, condition, description } = req.body;
+  const { title, images, category, price, brand, description } = req.body;
   const updatedProduct: Product = { 
     title: title,
     images: images,
