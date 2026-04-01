@@ -4,9 +4,10 @@ const validUser = {
   "firstName": "Alex",
   "lastName": "Ferguson",
   "phonenumber": "+353871234567",
-  "email": "alex.ferguson@gmail.com",
+  "email": "alex.ferguson123@gmail.com",
   "password": "password12345",
-  "dob": "12-31-1941",
+  "role": "admin",
+  "dob": "03-14-1953",
   "address": "The Manchester House"
 }
 
