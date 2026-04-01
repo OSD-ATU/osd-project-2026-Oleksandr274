@@ -8,8 +8,9 @@ describe('User API', () => {
     "firstName": "Alex2",
     "lastName": "Ferguson2",
     "phonenumber": "+353871234567",
-    "email": "alex2.ferguson@gmail.com",
+    "email": "alex2test.ferguson@gmail.com",
     "password": "2password12345",
+    "role": "",
     "dob": "12-31-1941",
     "address": "The Manchester House2"
   }

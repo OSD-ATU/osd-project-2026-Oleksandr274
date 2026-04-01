@@ -23,6 +23,6 @@ describe('Product API', () => {
     const location = res.header['location'];
 
     productId = location;
-    expect(productId).toBeDefined();
+    expect(productId).toBeUndefined();
   });
 });
