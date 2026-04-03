@@ -22,7 +22,8 @@ export class Login implements OnInit {
   private route = inject(ActivatedRoute)
   private snackBar = inject(MatSnackBar);
 
-  returnUrl: string = '';
+  userReturnUrl: string = '';
+  adminReturnUrl: string = '';
   
   constructor(
 
@@ -34,7 +35,8 @@ export class Login implements OnInit {
   }
   
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.userReturnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.adminReturnUrl = '/admin/products';
   }
 
   onSubmit() {
@@ -45,7 +47,7 @@ export class Login implements OnInit {
       subscribe({
         next: response => {
           console.log('user is logged in')
-          this.router.navigateByUrl(this.returnUrl);
+          this.router.navigateByUrl(this.userReturnUrl);
         },
         error: (err: Error) => {
           this.openErrorSnackBar('Incorrect email or password')
