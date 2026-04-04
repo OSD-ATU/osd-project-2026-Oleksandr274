@@ -5,7 +5,9 @@
         <mat-icon [matBadge]="cartService.total()" aria-hidden="false">shopping_cart</mat-icon>
       </button>
     }
-    <span class="mat-small mx-3 cursor-pointer" [routerLink]="['/orders']">{{currentUser$.getValue()?.email}}</span>
+    <span class="mat-small mx-3 cursor-pointer" [routerLink]="['/orders']">
+      {{currentUser$.getValue()?.firstName}} - {{currentUser$.getValue()?.lastName }}
+    </span>
     <button matButton="outlined" (click)="onLogOut()">
       Log Out
     </button>
