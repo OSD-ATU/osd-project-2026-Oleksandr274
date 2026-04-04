@@ -18,14 +18,12 @@ import { CartItem } from '../../models/cartItem.interface';
 })
 export class HeaderActions implements OnInit {
   private authService = inject(AuthCustomService)
-  private cartService = inject(UserCartService)
+  public cartService = inject(UserCartService)
   private router = inject(Router);
   currentUser$: BehaviorSubject<User | null>
   isAuthenticated: boolean = false;
 
   userCart: CartItem[] = [];
-
-  itemsInCart = signal(0)
 
   constructor() {
     this.currentUser$ = this.authService.currentUser$
@@ -37,19 +35,8 @@ export class HeaderActions implements OnInit {
     })
 
     if(this.isAuthenticated){
-      this.cartService.getUserCart().subscribe(value=>{
-        console.log(value)
-      })
-      
+      this.cartService.getUserCart();      
     }
-    
-    this.cartService.getUserCartObs().subscribe(cartData => {
-      this.userCart = cartData;
-    })
-
-    // this.authService.currentUser$.subscribe((user)=>{
-    //   this.currentUser = user
-    // })
   }
 
   onLogOut() {

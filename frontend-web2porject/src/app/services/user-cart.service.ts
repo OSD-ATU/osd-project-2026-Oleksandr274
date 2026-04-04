@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.interface';
@@ -13,17 +13,13 @@ export class UserCartService {
 
   private cartUri = `${environment.apiUri}/cart`
 
-  readonly userCart$ = new BehaviorSubject<CartItem[]>([]);
-
-  getUserCartObs(): Observable<CartItem[]> {
-    return this.userCart$.asObservable();
-  }
+  userCart$ = signal<CartItem[]>([]);
 
   getUserCart(): Observable<any> {
     return this.http.get<any>(this.cartUri)
       .pipe(
         map((data) => {
-          this.userCart$.next(data.cartData)
+          this.userCart$.set(data.cartData)
           return data.cartData as CartItem[];
         }),
         catchError(this.handleError)
@@ -34,7 +30,7 @@ export class UserCartService {
     return this.http.post<any>(`${this.cartUri}/${productId}`,{})
       .pipe(
         map((data) => {
-          this.userCart$.next(data.cartData);
+          this.userCart$.set(data.cartData)
           return;
         }),
         catchError(this.handleError)
@@ -45,12 +41,16 @@ export class UserCartService {
     return this.http.delete<any>(this.cartUri)
       .pipe(
         map((data) => {
-          this.userCart$.next(data.cartData);
+          this.userCart$.set(data.cartData)
           return;
         }),
         catchError(this.handleError)
       );
   }
+  
+  total  = computed( ()=> {
+    return this.userCart$().reduce((sum, item) => sum + item.quantity, 0)
+  });
 
 
   private handleError(error: HttpErrorResponse): Observable<never> {

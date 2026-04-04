@@ -2,7 +2,7 @@
   @if (isAuthenticated) {
     @if(currentUser$.getValue()?.role != 'admin'){
       <button class="relative" matIconButton [routerLink]="['/cart']">
-        <mat-icon [matBadge]="userCart.length" aria-hidden="false">shopping_cart</mat-icon>
+        <mat-icon [matBadge]="cartService.total()" aria-hidden="false">shopping_cart</mat-icon>
       </button>
     }
     <span class="mat-small mx-3 cursor-pointer" [routerLink]="['/orders']">{{currentUser$.getValue()?.email}}</span>
