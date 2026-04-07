@@ -1,43 +1,28 @@
-<div class="flex items-center gap-2">
+<div class="flex items-center gap-5">
   @if (isAuthenticated) {
   @if(currentUser$.getValue()?.role != 'admin'){
   <button class="relative" matIconButton [routerLink]="['/cart']">
-    <mat-icon [matBadge]="cartService.total()" aria-hidden="false">shopping_cart</mat-icon>
+    <mat-icon  class="scale-125" [matBadge]="cartService.total()" aria-hidden="false">shopping_cart</mat-icon>
   </button>
   }
-  <span class="mat-small mx-3 cursor-pointer" [routerLink]="['/orders']">
-    {{currentUser$.getValue()?.firstName}} - {{currentUser$.getValue()?.lastName }}
-  </span>
+  <!-- Dropdown Menu -->
+  <div class="relative mt-2 md:mt-0">
+    <button
+      class="text-dark text-semibold bg-gray-200 hover:bg-gray-300 focus-outline-none px-4 py-2 rounded-md inline-flex items-center"
+      (click)="toggleDropdown()">
+       {{currentUser$.getValue()?.firstName}} {{currentUser$.getValue()?.lastName }}
 
-  <div>
-    <button id="dropdownNvbarButton" data-dropdown-toggle="dropdownNavbar"
-      class="flex items-center justify-between w-full py-2 px-3 rounded font-medium text-heading md:w-auto hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0">
-      {{currentUser$.getValue()?.firstName}} {{currentUser$.getValue()?.lastName }}
       <svg class="w-4 h-4 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
         fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
       </svg>
     </button>
-    <!-- Dropdown menu -->
-    <div id="dropdownNavbar"
-      class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
-      <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownNvbarButton">
-        <li>
-          <a href="#"
-            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Orders</a>
-        </li>
-        <li (click)="onLogOut()">
-          <a
-            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Log
-            out</a>
-        </li>
-      </ul>
+    <div [class]="isDropdownOpen? 'transition ease-out duration300' : 'hidden' "
+      class="md:absolute right-0 mt-2 w-48 bg-gray-200 rounded-md shadow-lg z-10">
+      <a [routerLink]="['/orders']" (click)="toggleDropdown()" class="block px-4 py-2 text-dark hover:bg-gray-500">Orders</a>
+      <a (click)="onLogOut()" class="block px-4 py-2 text-dark hover:bg-gray-500">Log out</a>
     </div>
   </div>
-
-  <!-- <button matButton="outlined" (click)="onLogOut()">
-    Log Out
-  </button> -->
   } @else {
   <button matButton [routerLink]="['/login']">
     Sign In

@@ -8,11 +8,12 @@ import { User } from '../../models/user.interface';
 import { BehaviorSubject } from 'rxjs';
 import { UserCartService } from '../../services/user-cart.service';
 import { CartItem } from '../../models/cartItem.interface';
-import {initDropdowns} from 'flowbite';
+import { initDropdowns } from 'flowbite';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header-actions',
-  imports: [MatButton, MatIconButton, MatIcon, MatBadgeModule, RouterLink],
+  imports: [CommonModule, MatButton, MatIconButton, MatIcon, MatBadgeModule, RouterLink],
   templateUrl: './header-actions.html',
   styleUrl: './header-actions.scss',
 })
@@ -25,6 +26,8 @@ export class HeaderActions implements OnInit {
 
   userCart: CartItem[] = [];
 
+  isDropdownOpen: boolean = false;
+
   constructor() {
     this.currentUser$ = this.authService.currentUser$
   }
@@ -35,15 +38,20 @@ export class HeaderActions implements OnInit {
       this.isAuthenticated = status
     })
 
-    if(this.isAuthenticated){
-      this.cartService.getUserCart();      
+    if (this.isAuthenticated) {
+      this.cartService.getUserCart();
     }
   }
 
   onLogOut() {
+    this.toggleDropdown()
     this.authService.logout()
     console.log('user logged out')
     this.router.navigateByUrl('/');
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
 }
