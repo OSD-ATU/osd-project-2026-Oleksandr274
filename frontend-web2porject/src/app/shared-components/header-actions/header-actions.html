@@ -1,10 +1,17 @@
-<div class="flex items-center gap-5">
+<div class="flex items-center gap-15">
   @if (isAuthenticated) {
   @if(currentUser$.getValue()?.role != 'admin'){
   <button class="relative" matIconButton [routerLink]="['/cart']">
     <mat-icon  class="scale-125" [matBadge]="cartService.total()" aria-hidden="false">shopping_cart</mat-icon>
   </button>
   }
+
+  <div class="flex gap-5 ">
+    <a [routerLink]="['/admin/products']" class="hover:bg-gray-100 hover:underline">Products</a>
+   
+    <a [routerLink]="['/orders']" class="hover:bg-gray-100 hover:underline">Orders</a>
+  </div>
+
   <!-- Dropdown Menu -->
   <div class="relative mt-2 md:mt-0">
     <button
@@ -17,7 +24,7 @@
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
       </svg>
     </button>
-    <div [class]="isDropdownOpen? 'transition ease-out duration300' : 'hidden' "
+    <div [class]="isDropdownOpen? 'transition ease-out duration-300' : 'hidden' "
       class="md:absolute right-0 mt-2 w-48 bg-gray-200 rounded-md shadow-lg z-10">
       <a [routerLink]="['/orders']" (click)="toggleDropdown()" class="block px-4 py-2 text-dark hover:bg-gray-400">Orders</a>
       <a (click)="onLogOut()" class="block px-4 py-2 text-dark hover:bg-gray-400 cursor-pointer">Log out</a>
