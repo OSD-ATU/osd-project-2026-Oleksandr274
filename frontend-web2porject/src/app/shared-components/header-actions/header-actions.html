@@ -20,7 +20,7 @@
     <div [class]="isDropdownOpen? 'transition ease-out duration300' : 'hidden' "
       class="md:absolute right-0 mt-2 w-48 bg-gray-200 rounded-md shadow-lg z-10">
       <a [routerLink]="['/orders']" (click)="toggleDropdown()" class="block px-4 py-2 text-dark hover:bg-gray-400">Orders</a>
-      <a (click)="onLogOut()" class="block px-4 py-2 text-dark hover:bg-gray-400">Log out</a>
+      <a (click)="onLogOut()" class="block px-4 py-2 text-dark hover:bg-gray-400 cursor-pointer">Log out</a>
     </div>
   </div>
   } @else {

@@ -8,7 +8,6 @@ import { User } from '../../models/user.interface';
 import { BehaviorSubject } from 'rxjs';
 import { UserCartService } from '../../services/user-cart.service';
 import { CartItem } from '../../models/cartItem.interface';
-import { initDropdowns } from 'flowbite';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -30,10 +29,10 @@ export class HeaderActions implements OnInit {
 
   constructor() {
     this.currentUser$ = this.authService.currentUser$
+    this.cartService.getUserCart().subscribe();
   }
 
   ngOnInit(): void {
-    initDropdowns();
     this.authService.isAuthenticated$.subscribe((status) => {
       this.isAuthenticated = status
     })
