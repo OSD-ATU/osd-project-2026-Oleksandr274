@@ -108,7 +108,7 @@
             <p class="font-bold">Order Summary</p>
             <div class="border-b flex justify-between py-5">
               <p>Subtotal</p>
-              <p>{{9999999 | currency:'EUR'}}</p>
+              <p>{{getTotalPrice() | currency:'EUR'}}</p>
             </div>
             <div class="border-b flex justify-between py-5">
               <p>Shipping</p>
@@ -116,7 +116,7 @@
             </div>
             <div class="flex justify-between py-5">
               <p>Total</p>
-              <p>{{9999999 | currency:'EUR'}}</p>
+              <p>{{getTotalPrice() | currency:'EUR'}}</p>
             </div>
             <mat-card-actions class="my-2">
               <button matButton="filled" class="me-5" [disabled]="!orderForm.valid" (click)="onCheckout()">

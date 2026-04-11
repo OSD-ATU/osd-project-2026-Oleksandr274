@@ -113,6 +113,19 @@ export class ShoppingCart implements OnInit {
     }
   }
 
+  getTotalPrice(){
+    let totalPrice = 0;
+    if(this.cartItems != null && this.cartItems.length > 0){
+      this.cartItems?.forEach(item => {
+        let product = this.getCartProduct(item.productId);
+        totalPrice += product!.price * item.quantity; 
+      }); 
+      return totalPrice;
+    }
+    else 
+      return 0;
+  }
+
   get shippingAddress1() {
     return this.orderForm.get('shippingAddress1');
   }
